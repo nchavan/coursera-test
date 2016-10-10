@@ -11,15 +11,8 @@ ToBuyController.$inject = ['ShoppingListCheckOffService'];
 function ToBuyController(ShoppingListCheckOffService) {
   var toBuyContr = this;
 
-  toBuyContr.itemName = "";
-  toBuyContr.itemQuantity = "";
-
   toBuyContr.items = ShoppingListCheckOffService.getToBuyItems();
 
-  toBuyContr.addItem = function (){
-    ShoppingListCheckOffService.addToBuyItem(toBuyContr.itemName, toBuyContr.itemQuantity);
-  };
-  
   toBuyContr.removeItem = function (itemIndex) {
     ShoppingListCheckOffService.removeToBuyItem(itemIndex);
   };
@@ -30,18 +23,7 @@ AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
 function AlreadyBoughtController(ShoppingListCheckOffService) {
   var broughtContr = this;
 
-  broughtContr.itemName = "";
-  broughtContr.itemQuantity = "";
-
   broughtContr.items = ShoppingListCheckOffService.getBroughtItems();
-
-  broughtContr.addItem = function (){
-    ShoppingListCheckOffService.addBroughtItem(broughtContr.itemName, broughtContr.itemQuantity);
-  };
-  
-  broughtContr.removeItem = function (itemIndex) {
-    ShoppingListCheckOffService.removeBroughtItem(itemIndex);
-  };
   
 }
 
@@ -75,30 +57,9 @@ function ShoppingListCheckOffService(){
 
   var broughtItems = [];
 
-  service.addToBuyItem = function (itemName, quantity) {
-      var item = {
-        name : itemName,
-        quantity: quantity
-      };
-      toBuyItems.push(item);
-  };
-
-  service.addBroughtItem = function (itemName, quantity) {
-        var item = {
-          name : itemName,
-          quantity: quantity
-        };
-        broughtItems.push(item);
-  };
-
   service.removeToBuyItem = function (itemIndex) {
     broughtItems.push(toBuyItems[itemIndex]);
     toBuyItems.splice(itemIndex, 1);
-  };
-
-  service.removeBroughtItem = function (itemIndex) {
-      toBuyItems.push(broughtItems[itemIndex]);
-      broughtItems.splice(itemIndex, 1);
   };
 
   service.getToBuyItems = function(){
